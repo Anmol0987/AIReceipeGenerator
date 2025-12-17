@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { IngredientsService } from './ingredients.service';
 import { CreateIngredientDto } from './dtos/create-ingredient.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CreateBulkIngredientDto } from './dtos/create-bulk-ingredient.dto';
 
 @Controller('ingredients')
 export class IngredientsController {
@@ -12,7 +13,16 @@ export class IngredientsController {
   public createIngredient(@Body() createIngredientDto: CreateIngredientDto) {
     return this.ingredientService.createIngredient(createIngredientDto);
   }
-  @UseGuards(JwtAuthGuard)
+
+
+  // @UseGuards(JwtAuthGuard)
+  @Post('/bulk')
+  public createBulkIngredient(@Body() createBulkIngredientDto: CreateBulkIngredientDto) {
+    return this.ingredientService.createBulkIngredient(createBulkIngredientDto);
+  }
+
+
+  // @UseGuards(JwtAuthGuard)
   @Get()
   public findAllIngredients() {
     return this.ingredientService.findAllIngredients();
